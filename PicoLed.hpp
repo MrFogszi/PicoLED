@@ -28,10 +28,10 @@ namespace PicoLed {
         } else if (pioBlock == pio1) {
             pioIndex = 1;
         } else {
-            throw new InvalidPioBlock();
+            //throw new InvalidPioBlock();
         }
         if (targets[pioIndex].find(stateMachine) != targets[pioIndex].end()) {
-            throw new StateMachineInUse();
+            //throw new StateMachineInUse();
         }
         shared_ptr<T> target(new T(pioBlock, stateMachine, dataPin, numLeds, b1, b2, b3, b4));
         targets[pioIndex][stateMachine] = target;
@@ -44,6 +44,8 @@ namespace PicoLed {
             case FORMAT_RGB:
                 return addLeds<T>(pioBlock, stateMachine, dataPin, numLeds, RED, GREEN, BLUE, NONE);
             default:
+            case FORMAT_GBR:
+                return addLeds<T>(pioBlock, stateMachine, dataPin, numLeds, GREEN, BLUE, RED, NONE);
             case FORMAT_GRB:
                 return addLeds<T>(pioBlock, stateMachine, dataPin, numLeds, GREEN, RED, BLUE, NONE);
             case FORMAT_WRGB:
